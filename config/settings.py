@@ -31,12 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Preinstalled by Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Our own Apps 
+    'accounts',
+    
+    # Third Party
 ]
 
 MIDDLEWARE = [
@@ -118,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TIME_ZONE = 'America/Denver'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
