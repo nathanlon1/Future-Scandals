@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     # Our own Apps 
     'accounts',
+    'blog',
     
     # Third Party
 ]
