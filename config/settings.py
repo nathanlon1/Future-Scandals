@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     
     # Our own Apps 
     'accounts',
+    'blog',
     
     # Third Party
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR.joinpath('mediafiles'))
 
 TIME_ZONE = 'America/Denver'
 
