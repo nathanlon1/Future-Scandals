@@ -19,6 +19,7 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('pages.urls')),
     
     # 3rd Party
     url(r'^markdownx/', include('markdownx.urls')),
