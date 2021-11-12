@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Third Party
     'markdownx',
     'markdownify.apps.MarkdownifyConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(BASE_DIR.joinpath('Templates'))],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,3 +135,6 @@ MEDIA_ROOT = str(BASE_DIR.joinpath('mediafiles'))
 TIME_ZONE = 'America/Denver'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
