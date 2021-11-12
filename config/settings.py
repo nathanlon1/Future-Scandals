@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     # Third Party
     'markdownx',
+    'markdownify.apps.MarkdownifyConfig',
 ]
 
 MIDDLEWARE = [

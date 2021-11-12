@@ -5,9 +5,15 @@
 #    pip-compile requirements.in
 #
 asgiref==3.4.1
+bleach==4.1.0
 Django==3.1.13
+django-markdownify==0.9.0
 django-markdownx==3.0.1
 Markdown==3.3.4
+packaging==21.2
 Pillow==8.4.0
+pyparsing==2.4.7
 pytz==2021.3
+six==1.16.0
 sqlparse==0.4.2
+webencodings==0.5.1

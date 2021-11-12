@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
+{% load markdownify %}
 
 {% block content %}
-	<div class="article-entry">
-		<h2>{{ object.title }}</h2>
-		<p>by {{ object.author }} | {{ object.date }}</p>
-		<p>{{ object.body }}</p>
+	<header class="masthead text-center d-flex" id="mastheadPost">
+		<div class="container my-auto">
+			<div class="row">
+				<div class="col-lg-10 mx-auto">
+					<h1>
+						{{ object.title }}
+					</h1>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div id="blog">
+		<div class="text-muted" style="martin-top: 4rem"> 
+			{{object.author.displayName }}
+			<span style="float: right">{{ object.date_published}}</span>
+		</div>
+		<hr>
+		<p class="card-text" id="post"> {{ object.body|safe }} </p>
 	</div>
 {% endblock content %}
