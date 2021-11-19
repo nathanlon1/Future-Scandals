@@ -16,6 +16,9 @@ class Post(models.Model):
         on_delete = models.CASCADE,
     )
     
+    def body_summary(self):
+        return self.body[:300]
+    
     def __str__(self):
         return self.title
     
