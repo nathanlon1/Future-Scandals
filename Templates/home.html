@@ -2,11 +2,14 @@
 {% load markdownify %}
 
 {% block content %}
+
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<ul class = "navbar-nav mr-auto">
 			<li class="nav-item">
 				<form class="form-inline">
-					<input class="btn btn-outline-secondary" placeholder="Popular">
+					<a class="btn btn-outline-secondary" href="{% url 'popularblog_list' %}"
+					role="button">Popular</a>
 					<a class="btn btn-primary ml-2" href="{% url 'blog_list' %}"
 					role="button">New</a>
 				</form>
