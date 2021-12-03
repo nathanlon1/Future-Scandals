@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
 {% load markdownify %}
+{% load static %}
 
 {% block content %}
 
 
 	<h1>User Profile</h1>
 
-{{ page_user }}
+{{ page_user.displayName }}
 
+{% for object in object_list %}
+
+<div class="card">
+		<div class="card-header">
+			<a href="{% url 'blog_detail' object.pk %}" class="font-weight-bold">{{page_user.title}}</a> &middot;
+			<a href="{% url 'show_profile_page' object.author.pk %}" class="font-weight-bold"> {{object.author.displayName}}</a> &middot;
+			{{object.date_modified}}</span>
+		</div>
+		<div class="card-body">
+			{{object.body_summary|markdownify}}
+			<a href="{% url 'blog_detail' object.pk %}">...</a>
+		</div>
+		<div class="card-footer text-center text-muted">
+			<a href="#">Edit</a> | <a href="#">Delete</a>
+		</div>
+	</div>
+	<br />
+	{% endfor %}
 
 {% endblock content %}
 
