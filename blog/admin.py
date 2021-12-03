@@ -1,6 +1,6 @@
 from django.contrib import admin
 from markdownx.admin import MarkdownxModelAdmin
-from .models import Post
+from .models import Post, Comment
 
 class PostAdmin(MarkdownxModelAdmin):
     model = Post
@@ -8,3 +8,8 @@ class PostAdmin(MarkdownxModelAdmin):
     fieldsets = MarkdownxModelAdmin.fieldsets
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment)
+
+
+
+

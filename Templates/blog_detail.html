@@ -22,9 +22,9 @@
 		<hr>
 		<p class="card-text" id="post"> {{ object.body|safe }} </p>
 		<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
-		<br/><br/>
-		<hr>
 		<br/>
+		<hr>
+		
 		
 	</div>
 
@@ -42,6 +42,28 @@
 		<a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this article!</a><br>
 		{% endif %}
 		<strong class="text-secondary ">{{number_of_likes}} Like{{number_of_likes|pluralize }}</strong>
+
+		<br/>
+		<hr>
+		<h2>Comments...</h2>
+		<br>
+
+		{% if not post.comments.all %}
+			No Comments Yet...<br><br><a href="{% url 'add_comment' post.pk %}">
+			Add One</a>
+		{% else %}
+		<a href="{% url 'add_comment' post.pk %}">Add Comment</a> <br><br>
+			{% for comment in post.comments.all %}
+				<strong>
+					{{ comment.name }} -
+					{{comment.date_added}}
+				</strong>
+				<br/>
+				{{ comment.body }}
+				<br/>
+				<hr>
+			{% endfor %}
+		{% endif %}
 
 
 {% endblock %}

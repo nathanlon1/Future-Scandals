@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
-from .models import Post
+from django.views.generic import DetailView, CreateView
+from .models import Post, Comment
+from .forms import CommentForm
 #
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 #
 
 
@@ -35,3 +36,14 @@ def BlogPostLike(request, pk):
         post.likes.add(request.user)
     return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 #
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+    #fields = '__all__'
+    #success_url = reverse_lazy('home')
+    def form_valid(self, form):
+       form.instance.post_id = self.kwargs['pk']
+       return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('blog_detail', kwargs={'pk':self.kwargs['pk']})
