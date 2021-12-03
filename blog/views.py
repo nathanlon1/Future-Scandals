@@ -1,5 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView
+
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
+
 from .models import Post, Comment
 from .forms import CommentForm
 #
@@ -13,8 +18,7 @@ from django.urls import reverse, reverse_lazy
 class BlogDetailView(DetailView):
     model = Post
     template_name = 'blog_detail.html'
-
-
+    
     def get_context_data(self, **kwargs):
        
         data = super().get_context_data(**kwargs)
@@ -26,8 +30,32 @@ class BlogDetailView(DetailView):
         data['number_of_likes'] = likes_connected.number_of_likes()
         data['post_is_liked'] = liked
         return data
+
+class BlogCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'body']
     
-#
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'body']
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    
+    success_url = reverse_lazy('home')
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
 
 def BlogPostLike(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('blogpost_id'))
@@ -49,4 +77,3 @@ class AddCommentView(CreateView):
        return super().form_valid(form)
     def get_success_url(self):
         return reverse_lazy('blog_detail', kwargs={'pk':self.kwargs['pk']})
-

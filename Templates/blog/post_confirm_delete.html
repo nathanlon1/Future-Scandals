@@ -1,0 +1,22 @@
+<!--
+https://stackoverflow.com/questions/55315031/how-does-django-choose-template-name-for-createview-when-i-don-t-specify-it
+
+I DID SPECIFY THE TEMPLATE
+HOWEVER, IT DEMANDED IT BE NAMED POST_FORM.HTML IN TEMPLATES/BLOG
+THEREFORE, THIS IS THE ONLY TEMPLATE NAME AND LOCATION THAT CAN BE USED FOR CREATE VIEW WITH A MODEL NAMED POST
+I DON'T KNOW IF NAMING THE MODEL POST WAS A MISTAKE, BUT THIS IS ALL THAT CAN BE DONE
+-->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}}
+
+{% block content %}
+	<h1>Delete "{{ object.title }}"</h1>
+	<hr>
+	<div>
+		<form action="" method="post">{% csrf_token %}
+			<h2>Are you sure you want to delete "{{ object.title }}"? This action cannot be undone.</h2>
+			<button class="btn btn-success ml-2" type="submit">Confirm</button>
+		</form>
+	</div>
+{% endblock content %}

@@ -18,6 +18,10 @@
 		<div class="text-muted" style="martin-top: 4rem"> 
 			{{object.author.displayName }}
 			<span style="float: right">{{ object.date_modified }}</span>
+			<br>
+			{% if user == object.author %}
+			<a href="{% url 'blog_edit' object.pk %}">Edit</a> | <a href="{% url 'blog_delete' object.pk %}">Delete</a>
+			{% endif %}
 		</div>
 		<hr>
 		<p class="card-text" id="post"> {{ object.body|safe }} </p>
