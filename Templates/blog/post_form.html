@@ -1,0 +1,26 @@
+<!--
+https://stackoverflow.com/questions/55315031/how-does-django-choose-template-name-for-createview-when-i-don-t-specify-it
+
+I DID SPECIFY THE TEMPLATE
+HOWEVER, IT DEMANDED IT BE NAMED POST_FORM.HTML IN TEMPLATES/BLOG
+THEREFORE, THIS IS THE ONLY TEMPLATE NAME AND LOCATION THAT CAN BE USED FOR CREATE VIEW WITH A MODEL NAMED POST
+I DON'T KNOW IF NAMING THE MODEL POST WAS A MISTAKE, BUT THIS IS ALL THAT CAN BE DONE
+-->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}}
+
+{% block content %}
+	<h1>
+		{% if object.title == None %}New Blog Post{% else %}Edit Blog Post{% endif %}
+	</h1>
+	<hr>
+	<div>
+		<form action="" method="post">{% csrf_token %}
+			{{ form|crispy }}
+			<button class="btn btn-success ml-2" type="submit">Save</button>
+		</form>
+
+		<div class="markdownx-preview">{{ form.media }}</div>
+	</div>
+{% endblock content %}

@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     
+    # Django stuff installed manually
+    'django.forms',
+    
     # Our own Apps 
     'accounts',
     'blog',
@@ -144,4 +147,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 

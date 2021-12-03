@@ -29,7 +29,9 @@
 			<a href="{% url 'blog_detail' object.pk %}">...</a>
 		</div>
 		<div class="card-footer text-center text-muted">
-			<a href="#">Edit</a> | <a href="#">Delete</a>
+			{% if user == object.author %}
+			<a href="{% url 'blog_edit' object.pk %}">Edit</a> | <a href="{% url 'blog_delete' object.pk %}">Delete</a>
+			{% endif %}
 		</div>
 	</div>
 	<br />
