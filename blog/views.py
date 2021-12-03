@@ -1,13 +1,10 @@
 from django.shortcuts import render
-<<<<<<< HEAD
+
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
-from .models import Post
-=======
-from django.views.generic import DetailView, CreateView
 from .models import Post, Comment
 from .forms import CommentForm
 #
@@ -20,10 +17,9 @@ from django.urls import reverse, reverse_lazy
 
 class BlogDetailView(DetailView):
     model = Post
-    
-    
     template_name = 'blog_detail.html'
-        def get_context_data(self, **kwargs):
+    
+    def get_context_data(self, **kwargs):
        
         data = super().get_context_data(**kwargs)
 
