@@ -45,9 +45,12 @@
 						{{user.username}}
 						</a>
 						<div class ="dropdown-menu dropdown-menu-lg-right"
-							aria-labelledby="navbarDropdown">
-							<a href="{% url 'blog_create' %}" class="btn btn-outline-secondary">New Blog Post</a>
-							<a href="{% url 'logout' %}" class="btn btn-outline-secondary" style="width: auto; height:auto;" >Logout</a>
+							aria-labelledby="navbarDropdown" style="margin: 2px;">
+							<a href="{% url 'show_profile_page' user.pk %}" class="btn btn-outline-secondary" style="width: 100%; height:auto; margin: 2px;" >My Profile</a>
+							<br>
+							<a href="{% url 'blog_create' %}" class="btn btn-outline-secondary" style="width: 100%; height:auto; margin: 2px;">New Blog Post</a>
+							<br>
+							<a href="{% url 'logout' %}" class="btn btn-outline-secondary" style="width: 100%; height:auto; margin: 2px;" >Logout</a>	
 						</div>
 					</li>
 				</ul>
