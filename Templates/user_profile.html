@@ -9,23 +9,24 @@
 
 {{ page_user.displayName }}
 
-{% for object in object_list %}
-
-<div class="card">
-		<div class="card-header">
-			<a href="{% url 'blog_detail' object.pk %}" class="font-weight-bold">{{page_user.title}}</a> &middot;
-			<a href="{% url 'show_profile_page' object.author.pk %}" class="font-weight-bold"> {{object.author.displayName}}</a> &middot;
-			{{object.date_modified}}</span>
+	{% for blog in page_user.blogs.all %}
+		<div class="card">
+			<div class="card-header">
+				<a href="{% url 'blog_detail' blog.pk %}" class="font-weight-bold">{{blog.title}}</a> &middot;
+				<a href="{% url 'show_profile_page' blog.author.pk %}" class="font-weight-bold"> {{blog.author.displayName}}</a> &middot;
+				{{blog.date_modified}}</span>
+			</div>
+			<div class="card-body">
+				{{blog.body_summary|markdownify}}
+				<a href="{% url 'blog_detail' blog.pk %}">...</a>
+			</div>
+			<div class="card-footer text-center text-muted">
+				{% if user == blog.author %}
+				<a href="{% url 'blog_edit' blog.pk %}">Edit</a> | <a href="{% url 'blog_delete' blog.pk %}">Delete</a>
+				{% endif %}
+			</div>
 		</div>
-		<div class="card-body">
-			{{object.body_summary|markdownify}}
-			<a href="{% url 'blog_detail' object.pk %}">...</a>
-		</div>
-		<div class="card-footer text-center text-muted">
-			<a href="#">Edit</a> | <a href="#">Delete</a>
-		</div>
-	</div>
-	<br />
+		<br />
 	{% endfor %}
 
 {% endblock content %}
