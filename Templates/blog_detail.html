@@ -16,8 +16,14 @@
 
 	<div id="blog">
 		<div class="text-muted" style="martin-top: 4rem"> 
-			{{object.author.displayName }}
-			<span style="float: right">{{ object.date_modified }}</span>
+			<a class="text-muted" href="{% url 'show_profile_page' object.author.pk %}">{{object.author.displayName }}</a>
+			<span style="float: right">
+				{{ object.date_published }}
+				{%if object.date_published != object.date_modified %}
+					&middot; Edited
+					{{ object.date_modified }}
+				{% endif %}
+			</span>
 			<br>
 			{% if user == object.author %}
 			<a href="{% url 'blog_edit' object.pk %}">Edit</a> | <a href="{% url 'blog_delete' object.pk %}">Delete</a>
@@ -49,7 +55,7 @@
 
 		<br/>
 		<hr>
-		<h2>Comments...</h2>
+		<h2>Comments</h2>
 		<br>
 
 		{% if not post.comments.all %}
@@ -59,7 +65,10 @@
 		<a href="{% url 'add_comment' post.pk %}">Add Comment</a> <br><br>
 			{% for comment in post.comments.all %}
 				<strong>
-					{{ comment.name }} -
+					<a style="color: black;" href="{% url 'show_profile_page' object.author.pk %}">
+						{{ comment.name }}
+					</a>
+					-
 					{{comment.date_added}}
 				</strong>
 				<br/>
