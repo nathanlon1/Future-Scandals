@@ -68,12 +68,13 @@ def BlogPostLike(request, pk):
 #
 class AddCommentView(CreateView):
     model = Comment
-    form_class = CommentForm
+    #form_class = CommentForm
     template_name = 'add_comment.html'
-    #fields = '__all__'
+    fields = ['body']
     #success_url = reverse_lazy('home')
     def form_valid(self, form):
        form.instance.post_id = self.kwargs['pk']
+       form.instance.name = self.request.user
        return super().form_valid(form)
     def get_success_url(self):
         return reverse_lazy('blog_detail', kwargs={'pk':self.kwargs['pk']})

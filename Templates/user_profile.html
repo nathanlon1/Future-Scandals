@@ -5,9 +5,12 @@
 {% block content %}
 
 
-	<h1>User Profile</h1>
-
-{{ page_user.displayName }}
+	<h1>{{ page_user.displayName }}</h1>
+	<div class="text-muted" style="martin-top: 4rem"> 
+			@{{ page_user }}
+			<span style="float: right">Joined {{ page_user.date_joined }}</span>
+	</div>
+	<hr>
 
 	{% for blog in page_user.blogs.all %}
 		<div class="card">
