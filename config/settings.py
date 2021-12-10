@@ -151,3 +151,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+

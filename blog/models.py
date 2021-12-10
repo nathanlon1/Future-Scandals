@@ -25,6 +25,10 @@ class Post(models.Model):
     )
 
     likes = models.ManyToManyField(User, related_name='blogpost_like')
+    #
+    @property
+    def number_of_comments(self):
+        return Comment.objects.filter(post=self).count()
 
 
 
@@ -61,11 +65,19 @@ class Comment(models.Model):
     
     name = models.ForeignKey(
         get_user_model(),
+        #
+        #editable=False,
+        #
         on_delete = models.CASCADE,
     )
     
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+
+    #def __str__(self):
+        #return 'Comment {} by {}'.format(self.body, self.name)
+
+
 
     def __str__(self):
         return '%s - %s' % (self.post.title, self.name)

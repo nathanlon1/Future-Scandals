@@ -8,6 +8,8 @@ from .views import (
     BlogDeleteView,
     BlogPostLike,
     AddCommentView,
+    #CommentUpdateView,
+    CommentDeleteView,
 )
 #from . import views
 
@@ -22,4 +24,6 @@ urlpatterns = [
     path('new/', BlogCreateView.as_view(), name = 'blog_create'),
     path('edit/<int:pk>/', BlogUpdateView.as_view(), name = 'blog_edit'),
     path('delete/<int:pk>/', BlogDeleteView.as_view(), name = 'blog_delete'),
+    path('delete-comment/<int:pk>', CommentDeleteView.as_view(), name='delete-comment'),
+    #path('edit-comment/<int:pk>', CommentUpdateView.as_view(), name = 'edit-comment'),
 ]

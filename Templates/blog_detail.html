@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load markdownify %}
 
+{% load crispy_forms_tags %}
+
+
 {% block content %}
 	<header class="masthead text-center d-flex" id="mastheadPost">
 		<div class="container my-auto">
@@ -49,34 +52,70 @@
 				{% endif %}
 		</form>
 		{% else %}
-		<a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this article!</a><br>
+
+		<a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this post!</a><br>
 		{% endif %}
 		<strong class="text-secondary ">{{number_of_likes}} Like{{number_of_likes|pluralize }}</strong>
 
 		<br/>
 		<hr>
-		<h2>Comments</h2>
+		<h1>Comments</h1>
 		<br>
 
-		{% if not post.comments.all %}
-			No Comments Yet...<br><br><a href="{% url 'add_comment' post.pk %}">
-			Add One</a>
-		{% else %}
-		<a href="{% url 'add_comment' post.pk %}">Add Comment</a> <br><br>
-			{% for comment in post.comments.all %}
-				<strong>
-					<a style="color: black;" href="{% url 'show_profile_page' object.author.pk %}">
+<div id="comments_section">
+{% if user.is_authenticated %}
+  	{% if not post.comments.all %}
+  		<h3>No Comments Yet...</h3>
+  	{% else %}
+  		<h3> Add Comment...</h3>
+  	{% endif %}
+
+  <form method="POST">
+	{% csrf_token %}
+	<div class="form-group">
+	  {{ comment_form }}
+	  <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+	</div>
+  </form>
+{% else %}
+	<a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to comment on this post!</a><br>
+  {% endif %}
+
+  {% if comments %}
+  <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+  <hr>
+  <ul>
+    {% for comment in post.comments.all %}
+    	
+    <li>           
+     <div>
+	    <span>
+	      <small class="text-info"><a href="{% url 'show_profile_page' object.author.pk %}">
 						{{ comment.name }}
-					</a>
-					-
-					{{comment.date_added}}
-				</strong>
-				<br/>
-				{{ comment.body }}
-				<br/>
-				<hr>
-			{% endfor %}
-		{% endif %}
+					</a> | </small>
+	      <small class="text-info">{{ comment.date_added }} | </small>
+	      <small class="text-muted">{{comment.body }} </small>
+	      {% if request.user == comment.name %}
+	      <small class = "text-info"><a href="{% url 'delete-comment' comment.id %}">Delete</a></small>
+	      {% endif %}
+
+			
+	    </span>
+	    <p>
+	      {{ comment.content|safe }}
+	    </p>
+      </div>
+      
+    </li>
+	{% endfor %}
+	{% endif %}
 
 
+  </ul>
+
+    
+  
+
+</div>
 {% endblock %}
+

@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView
 from blog.models import Post
 from accounts.models import CustomUser 
 
+
 from django.http import HttpResponseRedirect
 
 
