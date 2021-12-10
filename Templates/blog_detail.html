@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load markdownify %}
+
 {% load crispy_forms_tags %}
+
 
 {% block content %}
 	<header class="masthead text-center d-flex" id="mastheadPost">
@@ -50,6 +52,7 @@
 				{% endif %}
 		</form>
 		{% else %}
+
 		<a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this post!</a><br>
 		{% endif %}
 		<strong class="text-secondary ">{{number_of_likes}} Like{{number_of_likes|pluralize }}</strong>
@@ -87,7 +90,9 @@
     <li>           
      <div>
 	    <span>
-	      <small class="text-info">{{ comment.name }} | </small>
+	      <small class="text-info"><a href="{% url 'show_profile_page' object.author.pk %}">
+						{{ comment.name }}
+					</a> | </small>
 	      <small class="text-info">{{ comment.date_added }} | </small>
 	      <small class="text-muted">{{comment.body }} </small>
 	      {% if request.user == comment.name %}
@@ -113,12 +118,4 @@
 
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
 

@@ -4,7 +4,9 @@ from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+
 from django.http import HttpResponseForbidden
+
 
 from .models import Post, Comment
 from .forms import CommentForm
@@ -13,8 +15,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 #
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
 
 
 
@@ -32,6 +36,7 @@ class BlogDetailView(DetailView):
             liked = True
         data['number_of_likes'] = likes_connected.number_of_likes()
         data['post_is_liked'] = liked
+
         #
         comments_connected=Comment.objects.filter(
             post=self.get_object()).order_by('-date_added')
@@ -48,7 +53,8 @@ class BlogDetailView(DetailView):
         new_comment.save()
         return self.get(self, request, *args, **kwargs)
         #
-       
+
+
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -97,7 +103,7 @@ class AddCommentView(CreateView):
        form.instance.post_id = self.kwargs['pk']
        form.instance.name = self.request.user
        return super().form_valid(form)
-        
+   
     def get_success_url(self):
         return reverse_lazy('blog_detail', kwargs={'pk':self.kwargs['pk']})
     @login_required
