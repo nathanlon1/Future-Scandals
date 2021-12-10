@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% load static %}
+
+{% block content %}
+
+
+	<h1>{{ page_user.displayName }}</h1>
+	<div class="text-muted" style="martin-top: 4rem"> 
+			@{{ page_user }}
+			<span style="float: right">Joined {{ page_user.date_joined }}</span>
+	</div>
+	<hr>
+
+	{% for blog in page_user.blogs.all %}
+		<div class="card">
+			<div class="card-header">
+				<a href="{% url 'blog_detail' blog.pk %}" class="font-weight-bold">{{blog.title}}</a> &middot;
+				<a href="{% url 'show_profile_page' blog.author.pk %}" class="font-weight-bold"> {{blog.author.displayName}}</a> &middot;
+				{{blog.date_modified}}</span>
+			</div>
+			<div class="card-body">
+				{{blog.body_summary|markdownify}}
+				<a href="{% url 'blog_detail' blog.pk %}">...</a>
+			</div>
+			<div class="card-footer text-center text-muted">
+				{% if user == blog.author %}
+				<a href="{% url 'blog_edit' blog.pk %}">Edit</a> | <a href="{% url 'blog_delete' blog.pk %}">Delete</a>
+				{% endif %}
+			</div>
+		</div>
+		<br />
+	{% endfor %}
+
+{% endblock content %}
+
