@@ -21,6 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(
         get_user_model(),
         on_delete = models.CASCADE,
+        related_name = "blogs",
     )
 
     likes = models.ManyToManyField(User, related_name='blogpost_like')
