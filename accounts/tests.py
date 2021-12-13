@@ -21,3 +21,8 @@ class PostTests(TestCase):
         response = self.client.get(reverse('signup'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "registration/signup.html")
+    
+    def test_profile_view(self):
+        response = self.client.get(reverse('show_profile_page', kwargs={'pk':self.user.pk}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'user_profile.html')

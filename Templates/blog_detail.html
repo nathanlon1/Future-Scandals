@@ -72,7 +72,7 @@
 
   <form method="POST">
 	{% csrf_token %}
-	<div class="form-group">
+	<div class="form-group" style="width: 50%;>
 	  {{ comment_form }}
 	  <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
 	</div>
@@ -90,13 +90,13 @@
     <li>           
      <div>
 	    <span>
-	      <small class="text-info"><a href="{% url 'show_profile_page' object.author.pk %}">
+	      <strong class="text-info"><a href="{% url 'show_profile_page' comment.name.pk %}">
 						{{ comment.name }}
-					</a> | </small>
-	      <small class="text-info">{{ comment.date_added }} | </small>
-	      <small class="text-muted">{{comment.body }} </small>
+					</a> | </strong>
+	      <strong class="text-info">{{ comment.date_added }} | </strong>
+	      <strong class="text-muted">{{comment.body }} </strong>
 	      {% if request.user == comment.name %}
-	      <small class = "text-info"><a href="{% url 'delete-comment' comment.id %}">Delete</a></small>
+	      <strong class = "text-info"><a href="{% url 'delete-comment' comment.id %}">Delete</a></strong>
 	      {% endif %}
 
 			
